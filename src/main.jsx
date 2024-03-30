@@ -1,4 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
-ReactDOM.render(<App />, document.getElementById("root"));
+import { BrowserRouter } from "react-router-dom";
+import "antd/dist/reset.css";
+
+import store from "./app/store";
+import { Provider } from "react-redux";
+createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
+);
