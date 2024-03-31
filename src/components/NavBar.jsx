@@ -13,10 +13,10 @@ import { useState } from "react";
 
 function NavBar() {
   const [screenSize, setScreenSize] = useState(null);
-  const [activeMenu, setActiveMenu] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(true);
   useEffect(() => {
     const resizeHandler = () => {
-      setScreenSize(true);
+      setScreenSize(window.innerWidth);
     };
     window.addEventListener("resize", resizeHandler);
 
