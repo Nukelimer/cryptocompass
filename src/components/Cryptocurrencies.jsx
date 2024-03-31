@@ -42,7 +42,7 @@ function Cryptocurrencies({ simplified }) {
           </div>
         )}
 
-        <Row gutter={[32, 32]} className="crypto-card-container">
+        <Row gutter={[10, 10]} className="crypto-card-container">
           {cryptos?.map((crypto) => {
             return (
               <Col

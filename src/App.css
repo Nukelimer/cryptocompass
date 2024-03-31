@@ -24,7 +24,7 @@ a:hover {
 
 .navbar {
   flex: 0.2;
-  background-color: #001529;
+  background-color: rgb(0, 21, 41);
 }
 
 .main {
@@ -33,7 +33,6 @@ a:hover {
 }
 .routes {
   padding: 20px;
-  width: 70vw;
 }
 .nav-container {
   position: fixed;
@@ -48,22 +47,36 @@ a:hover {
 .logo-container {
   background-color: #001529;
   display: flex;
+  flex-direction: column;
   padding: 20px;
   align-items: center;
   width: 100%;
 }
+.logo-container img {
+  align-self: start;
+
+  width: 100%;
+}
+
 .logo {
-  margin: 0 0 0 15px;
+margin-left: 10px;
+  color: white !important;
+  text-decoration: none !important;
+  margin-bottom: 0 !important;
+}
+
+.color {
+  text-decoration: none !important;
+  color: white;
 }
 .logo a {
   color: white;
-  font-size: 0.7rem;
 }
 .menu-control-container {
   display: none !important;
   position: absolute !important;
   right: 10px !important;
-  top: 25px !important;
+  top: 35px !important;
   font-size: 1.2rem !important;
   background-color: var(--bgSecondary) !important;
   border: none !important;
@@ -117,7 +130,12 @@ a:hover {
     width: 100%;
     z-index: 100;
     background-color: var(--bgSecondary);
-   
+  }
+
+  .logo-container {
+    background-color: #001529;
+    display: flex;
+    flex-direction: row;
   }
 
   .menu-control-container {
@@ -126,7 +144,7 @@ a:hover {
 
   .ant-menu {
     position: absolute;
-    right: 0px; background: green;
+    right: 0px;
   }
   .home-title {
     font-size: 1.4rem !important;
@@ -138,12 +156,6 @@ a:hover {
 
 .coin-detail-container {
   margin: 30px;
-}
-
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .coin-heading-container {
@@ -308,14 +320,8 @@ a:hover {
 }
 .news-title {
   width: 70%;
-  font-size: smaller;
-
 }
 
-.box-height{
-
-  height: fit-content;
-}
 .news-image-container .img {
   width: 100px;
   height: 100px;
@@ -368,15 +374,13 @@ a:hover {
 }
 .search-crypto {
   margin: 20px auto 30px auto;
-  width: 400px;
-
+  width: 250px;
 }
 .crypto-card-container {
   min-height: 65vh !important;
-  width: 100%;
 
-display: flex;
- justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .crypto-card {
   min-width: 250px;

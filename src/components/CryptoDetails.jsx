@@ -15,24 +15,27 @@ import {
   ThunderboltOutlined,
   TrophyOutlined,
 } from "@ant-design/icons";
-import { useGetCryptoDetailsQuery,  useGetCryptoHistoryQuery } from "../services/cryptoapp";
+import {
+  useGetCryptoDetailsQuery,
+  useGetCryptoHistoryQuery,
+} from "../services/cryptoapp";
 import { RingLoader } from "react-spinners";
 import LineChart from "./LineChart";
 
 function CryptoDetails() {
   const { Text, Title } = Typography;
-  const [timePeriod, setTimePeriod] = useState("7d");
-
+  const [timePeriod, setTimePeriod] = useState("3m");
 
   const { Option } = Select;
   const { coinId } = useParams();
-  const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
-  const { data:coinHistory, isFetching:historyFetching } = useGetCryptoHistoryQuery(coinId, timePeriod);
+  const { data: CoinDetails, isFetching: IsFetchingCoinDetails } =
+    useGetCryptoDetailsQuery(coinId);
+  const { data, isFetching } = useGetCryptoHistoryQuery({ coinId, timePeriod });
 
 
-  console.log(coinHistory);
+
   try {
-    if (isFetching) {
+    if (IsFetchingCoinDetails) {
       return (
         <div className="center">
           <RingLoader color="#001529" loading={true} />;
@@ -40,7 +43,7 @@ function CryptoDetails() {
       );
     }
 
-    const cryptoDetails = data?.data?.coin;
+    const cryptoDetails = CoinDetails?.data?.coin;
 
     const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
@@ -104,7 +107,6 @@ function CryptoDetails() {
       },
     ];
     {
-   
     }
     return (
       <>
@@ -122,15 +124,26 @@ function CryptoDetails() {
           </Col>
 
           <Select
-            defaultValue={"7d"}
+            defaultValue={timePeriod}
             placeholder={"select period"}
-            onChange={(value) => setTimePeriod(value)}
+            onChange={(value) =>{
+              
+              console.log(' ....',value);
+              
+              setTimePeriod(value)}}
             className="select-timeperiod">
-            {time.map((date) => {
-              return <Option key={date}>{date}</Option>;
+            {time.map((period) => {
+              console.log(' period....',period);
+
+              return <Option key={period}>{period}</Option>;
             })}
           </Select>
-          <LineChart coinHistory={ coinHistory } isFetchingHistory={historyFetching} currentPrice={millify(cryptoDetails.price)} coinName={cryptoDetails.name} />
+          <LineChart
+            currentPrice={millify(cryptoDetails.price)}
+            coinName={cryptoDetails.name}
+            coinHistory={data?.data}
+            historyFetching={isFetching}
+          />
           <Col className="stats-container">
             <Col className="coin-value-statistic">
               <Col className="coin-value-statistics-heading">
@@ -141,9 +154,8 @@ function CryptoDetails() {
               </Col>
 
               {stats.map(({ title, value, icon }) => {
-          
                 return (
-                  <Col className="coin-stats" key={value}>
+                  <Col className="coin-stats" key={value+Math.random()}>
                     <Col className="coin-stats-name">
                       <Text>{icon}</Text>
                       <Text>{title}</Text>
@@ -165,9 +177,8 @@ function CryptoDetails() {
               </Col>
 
               {genericStats.map(({ title, value, icon }) => {
-        
                 return (
-                  <Col className="coin-stats" key={value}>
+                  <Col className="coin-stats" key={value+Math.random()}>
                     <Col className="coin-stats-name">
                       <Text>{icon}</Text>
                       <Text>{title}</Text>
@@ -183,11 +194,10 @@ function CryptoDetails() {
             <Row className="coin-desc">
               <Title level={3} className="coin-details-heading">
                 What is {cryptoDetails.name}?
-                <br/> {''}
-              
+                <br /> {""}
               </Title>
 
-              <p>  {HTMLReactParser(cryptoDetails.description)}</p>
+              <p> {HTMLReactParser(cryptoDetails.description)}</p>
             </Row>
           </Col>
         </Col>
